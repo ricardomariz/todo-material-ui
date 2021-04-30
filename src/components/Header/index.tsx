@@ -24,7 +24,7 @@ export function Header() {
       const newTodo = {
         id: Math.random(),
         isCompleted: false,
-        date: new Date().toDateString(),
+        date: new Intl.DateTimeFormat("pt-br").format(new Date()),
         text,
       };
       createTodo(newTodo);
