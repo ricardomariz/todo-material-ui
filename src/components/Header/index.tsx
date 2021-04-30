@@ -9,11 +9,29 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
+import { useTodos } from "../../hooks/useTodos";
 
 import "./styles.scss";
 
 export function Header() {
+  const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
+
+  const { createTodo } = useTodos();
+
+  function handleCreateTodo() {
+    if (text) {
+      const newTodo = {
+        id: Math.random(),
+        isCompleted: false,
+        date: new Date().toDateString(),
+        text,
+      };
+      createTodo(newTodo);
+      handleClose();
+      setText("");
+    }
+  }
 
   function handleClickOpen() {
     setOpen(true);
@@ -43,13 +61,15 @@ export function Header() {
               label="New todo"
               type="text"
               fullWidth
+              value={text}
+              onChange={(event) => setText(event.target.value)}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleCreateTodo} color="primary">
               Create
             </Button>
           </DialogActions>

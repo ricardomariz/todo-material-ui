@@ -9,10 +9,13 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { useTodos } from "../../hooks/useTodos";
 
 import "./styles.scss";
 
 export function TodoList() {
+  const { todos } = useTodos();
+
   return (
     <Container maxWidth="md" className="todolist-container">
       <h2>My todos</h2>
@@ -35,22 +38,20 @@ export function TodoList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell> 10/04/1990</TableCell>
-              <TableCell> Isso aqui é um todo mto grande viu</TableCell>
-              <TableCell align="right">
-                {" "}
-                <Checkbox color="secondary" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell> 10/04/1990</TableCell>
-              <TableCell> Isso aqui é um todo mto grande viu</TableCell>
-              <TableCell align="right">
-                {" "}
-                <Checkbox color="secondary" />
-              </TableCell>
-            </TableRow>
+            {todos.length > 0 ? (
+              todos.map((todo) => (
+                <TableRow key={todo.id}>
+                  <TableCell> {todo.date}</TableCell>
+                  <TableCell> {todo.text}</TableCell>
+                  <TableCell align="right">
+                    {" "}
+                    <Checkbox color="secondary" value={todo.isCompleted} />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <></>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
