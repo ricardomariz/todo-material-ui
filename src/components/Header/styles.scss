@@ -1,0 +1,14 @@
+.header {
+  background: var(--red);
+
+  .header-container {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      color: #fff;
+    }
+  }
+}
